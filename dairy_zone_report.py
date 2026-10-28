@@ -91,24 +91,39 @@ def build_zone_summary(collections_file=COLLECTIONS_FILE, farmers_file=FARMERS_F
     return summary.reset_index().rename(columns={"zone": "Zone"})
 
 
+
 if __name__ == "__main__":
     try:
         report = build_zone_summary()
-        print(f"\\nNAKURU DAIRY CO-OP — ZONE SUMMARY ({pd.Timestamp.today():%B %Y})")
-        print("=" * 78)
-        print(report.to_string(
-            index=False,
-            formatters={
-                "Total litres": lambda value: f"{value:,.1f}",
-                "Total payout (KES)": lambda value: f"KES {value:,.2f}",
-            },
-        ))
-        print("\\nTop farmer is ranked by total litres collected in the month.")
-    except (FileNotFoundError, ValueError, KeyError, pd.errors.MergeError) as error:
-        print(f"\\nCould not create the report: {error}")
+
+        print()
         print(
-            "\\nExpected columns:\\n"
-            "  milk_collection.xlsx: farmer_name, date, litres\\n"
-            "  farmer_details.xlsx: farmer_name, zone, payment_rate_per_litre"
+            f"NAKURU DAIRY CO-OP — ZONE SUMMARY "
+            f"({pd.Timestamp.today():%B %Y})"
+        )
+        print("=" * 78)
+
+        print(
+            report.to_string(
+                index=False,
+                formatters={
+                    "Total litres": lambda value: f"{value:,.1f}",
+                    "Total payout (KES)": lambda value: f"KES {value:,.2f}",
+                },
+            )
+        )
+
+        print()
+        print("Top farmer is ranked by total litres collected in the month.")
+
+    except (FileNotFoundError, ValueError, KeyError, pd.errors.MergeError) as error:
+        print()
+        print(f"Could not create the report: {error}")
+        print()
+        print("Expected columns:")
+        print("  milk_collection.xlsx: farmer_name, date, litres")
+        print(
+            "  farmer_details.xlsx: "
+            "farmer_name, zone, payment_rate_per_litre"
         )
         raise SystemExit(1)

@@ -2,6 +2,20 @@
 
 A small Python and pandas project that combines milk collection records with farmer details and prints a clean monthly summary by zone.
 
+## Sample Report Output
+
+The script combines milk collection records with farmer
+details to calculate monthly totals for each zone.
+
+![Nakuru Dairy Co-op Zone Summary](assets/zone_summary.png)
+
+The report includes:
+
+- Total litres collected per zone.
+- Total farmer payout per zone in Kenyan shillings.
+- The top farmer in each zone, ranked by total litres collected.
+
+
 ## What the script does
 
 1. Reads the two Excel input files.
